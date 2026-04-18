@@ -39,7 +39,8 @@ def main() -> int:
                         choices=["elliott", "trend", "support_resistance", "none"],
                         help="Claude Vision analysis type. 'none' to skip AI.")
     parser.add_argument("--backtest", default="elliott_w3",
-                        choices=["ma_golden", "rsi_oversold", "elliott_w3", "none"],
+                        choices=["ma_golden", "rsi_oversold", "elliott_w3",
+                                 "bollinger_breakout", "macd_divergence", "none"],
                         help="Backtest strategy. 'none' to skip.")
     parser.add_argument("--backtest-years", type=int, default=5)
     parser.add_argument("--output-dir", default="output/pipeline",
