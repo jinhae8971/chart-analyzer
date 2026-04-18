@@ -8,8 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- GitHub Actions workflow_dispatch 트리거
-- 대시보드 연동
+- 대시보드 연동 (카드 + 결과 렌더링)
+- Walk-forward parameter 최적화 CLI
+
+---
+
+## [0.2.1] — 2026-04-18
+
+### Added
+- **GitHub Actions Daily Pipeline** (`.github/workflows/daily_pipeline.yml`)
+  - 매주 평일(Mon-Fri) KST 08:00 (UTC 23:00 prev) 자동 실행
+  - 3개 sibling 레포(chart-analyzer + trendline-detector + backtest-lab) 동시 checkout
+  - `workflow_dispatch`로 수동 실행 시 입력 파라미터 커스터마이즈 가능
+    (tickers, days, chart_type, backtest_strategy, analysis_type)
+  - 결과 artifact 14일 보존
+  - 실패 시 자동 Telegram 알림
+  - 필요 secrets: ANTHROPIC_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+
+### Changed
+- `src/pipeline/__main__.py`: `--backtest` 선택지에 `bollinger_breakout`, `macd_divergence` 추가
+  (backtest-lab v0.2.0과 연동)
 
 ---
 
