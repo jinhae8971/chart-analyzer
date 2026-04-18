@@ -8,10 +8,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- trendline-detector와 통합 (swing/trendline 오버레이 자동 적용)
-- 여러 티커 배치 분석 + Telegram 요약
-- Claude opus-4-7 모델 자동 폴백 로직
 - GitHub Actions workflow_dispatch 트리거
+- 대시보드 연동
+
+---
+
+## [0.2.0] — 2026-04-18
+
+### Added
+- **Cross-repo integration pipeline** (`src/pipeline/`)
+  - `integrator.py`: sibling repo discovery + 동적 모듈 임포트
+  - 4-전략 탐색 순서: env var → sibling dir → common paths → auto-clone
+  - `CHART_ANALYZER_SIBLING_PATH` 환경변수로 strict 모드 지원
+  - `sys.modules` unique namespace로 `src/` 충돌 방지
+  - `~/.cache/chart-analyzer/siblings/`로 자동 git clone 폴백
+- **High-level API**
+  - `run_detection(ticker)`: trendline-detector 실행 → JSON 반환
+  - `run_backtest(ticker, strategy)`: backtest-lab 실행 → summary + HTML
+  - `run_full_pipeline(ticker)`: 전체 end-to-end (검출 → 차트 + 오버레이 → AI 분석 → 백테스트 → Telegram)
+- **통합 CLI** (`python -m src.pipeline`)
+  - 멀티 티커 지원: `--ticker NVDA,AAPL,MSFT`
+  - 차트 타입 선택: `--chart standard/raindrop/multitf`
+  - AI 분석 타입: `--analysis elliott/trend/support_resistance/none`
+  - 백테스트 전략: `--backtest elliott_w3/ma_golden/rsi_oversold/none`
+  - `--telegram`으로 통합 리포트 발송
+- **Rich Telegram caption** — 검출 + AI 분석 + 백테스트 결과를 한 메시지에 통합
+- **10 new pytest cases** (`tests/test_pipeline.py`)
+  - Sibling discovery (env var / strict / unknown / not-found)
+  - Smoke integration (실제 sibling 있을 때만 실행)
+  - Caption formatter edge cases
+
+### Verified (실측 동작 확인)
+- **NVDA 180일 full pipeline**: 34 swings → 10 trendlines → 오버레이 차트(6 lines) → Elliott W3 백테스트 +29.87%
+- **3-ticker batch** (NVDA/AAPL/MSFT): 각각 pattern detection + MA Golden 백테스트 병렬 실행
+  - NVDA: no pattern / bt=+85.1%
+  - AAPL: corrective/complete / bt=+19.5%
+  - MSFT: impulse wave 5 (down!) / bt=+7.3%
+
+### Rollback
+복원 명령: `git checkout v0.1.0`
 
 ---
 
