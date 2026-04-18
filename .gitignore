@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Chart artifacts (generated PNGs should NOT be committed)
+output/*.png
+output/*.jpg
+output/cache/
+!output/.gitkeep
+docs/charts/*.png
+!docs/charts/.gitkeep
+
+# Secrets
+.env
+.env.local
+*.key
+
+# Logs
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Test
+.pytest_cache/
+.coverage
