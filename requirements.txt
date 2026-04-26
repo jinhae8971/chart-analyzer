@@ -1,5 +1,5 @@
 # Charting
-mplfinance>=0.12.10
+mplfinance==0.12.10b0
 matplotlib>=3.8.0
 Pillow>=10.2.0      # 멀티 타임프레임 이미지 합성
 
@@ -18,7 +18,7 @@ requests>=2.31.0
 
 # Volume profile / technical analysis
 scipy>=1.12.0       # Volume profile 커널 밀도 추정
-ta-lib-binary>=0.6.0  # 기술적 지표 (optional)
+ta-lib>=0.6.0       # 기술적 지표 (optional)
 
 # Dev
 pytest>=8.0.0
