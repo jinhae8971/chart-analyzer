@@ -22,6 +22,19 @@ Usage:
 """
 from __future__ import annotations
 
+# === anthropic_usage_reporter (auto-injected) ===
+try:
+    from src.anthropic_usage_reporter import patch_anthropic_client
+    patch_anthropic_client(workflow="chart-analyzer-daily")
+except Exception:
+    try:
+        from anthropic_usage_reporter import patch_anthropic_client
+        patch_anthropic_client(workflow="chart-analyzer-daily")
+    except Exception:
+        pass
+# === end auto-injection ===
+
+
 import argparse
 import json
 import sys

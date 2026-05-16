@@ -102,6 +102,7 @@ jobs:
         env:
           CHART_ANALYZER_SIBLING_PATH: ${{ github.workspace }}
           ANTHROPIC_API_KEY:    ${{ secrets.ANTHROPIC_API_KEY }}
+          USAGE_DISPATCH_TOKEN: ${{ secrets.USAGE_DISPATCH_TOKEN }}
           TELEGRAM_BOT_TOKEN:   ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:     ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
